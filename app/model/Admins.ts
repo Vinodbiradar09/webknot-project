@@ -5,6 +5,9 @@ export interface AdminInt extends Document{
     _id : mongoose.Types.ObjectId,
     name : string,
     email : string,
+    verifyCode : string,
+    verifyCodeExpiry : Date,
+    isVerified : boolean
     password : string,
 
 }
@@ -25,6 +28,18 @@ const adminSchema = new Schema<AdminInt>(
             lowercase: true,
             trim: true,
             match: [/^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/, 'Please enter a valid email']
+        },
+        verifyCode : {
+            type : String,
+            required : [true , "Verify code is required"],
+        },
+        verifyCodeExpiry : {
+            type : Date,
+            required : [true , "Verify code expiry is required"],
+        },
+        isVerified : {
+            type : Boolean,
+            default : false 
         },
         password: {
             type: String,

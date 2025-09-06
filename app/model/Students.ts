@@ -7,6 +7,9 @@ export interface StudentInt extends Document {
     email: string;
     usn: string;
     branch: string;
+    verifyCode : string,
+    verifyCodeExpiry : Date,
+    isVerified : boolean
     password: string;
     createdAt: Date;
     updatedAt: Date;
@@ -35,7 +38,7 @@ const studentsSchema = new Schema<StudentInt>(
             unique: true,
             uppercase: true,
             trim: true,
-            match: [/^[A-Za-z0-9]{10}$/, "Invalid USN, please enter valid USN"], // Fixed typo
+            match: [/^[A-Za-z0-9]{10}$/, "Invalid USN, please enter valid USN"], 
         },
         branch: {
             type: String,
@@ -45,6 +48,18 @@ const studentsSchema = new Schema<StudentInt>(
                 values: ['CSE', 'ISE', 'ECE', 'EEE', 'MECH', 'CIVIL', 'CHEM', 'AERO', 'BT', 'IT'],
                 message: 'Please select a valid branch'
             }
+        },
+        verifyCode : {
+            type : String,
+            required : [true , "Verify code is required"],
+        },
+        verifyCodeExpiry : {
+            type : Date,
+            required : [true , "Verify code expiry is required"],
+        },
+        isVerified : {
+            type : Boolean,
+            default : false 
         },
         password: {
             type: String,
