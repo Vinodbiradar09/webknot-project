@@ -85,7 +85,7 @@ export async function PATCH(request : NextRequest , {params} : {params : Promise
             {
                 message : "Event has been updated successfully",
                 success : true,
-                eventDoc : eventUpdated,
+                updatedEventDoc : eventUpdated,
             },{status : 200}
         )
     } catch (error) {
