@@ -1,4 +1,5 @@
 import { EventInt } from "../model/Events";
+import { ResultIntForStudentAttendance } from "./EventTyp";
 
 export interface StudentDetails {
   id: string;
@@ -7,6 +8,7 @@ export interface StudentDetails {
   usn: string;
   branch: string;
 }
+
 export interface RegistrationWithStudent {
   registrationId: string;
   student: StudentDetails;
@@ -18,6 +20,7 @@ export interface RegistrationWithStudent {
     submittedAt?: string;
   } | null;
 }
+
 export interface EventStatistics {
   totalRegistrations: number;
   totalPresent: number;
@@ -25,6 +28,7 @@ export interface EventStatistics {
   attendancePercentage: number;
   availableSpots: number | null;
 }
+
 export interface EventDetails {
   _id: string;
   title: string;
@@ -36,6 +40,17 @@ export interface EventDetails {
   maxParticipants?: number;
   status: "upcoming" | "ongoing" | "completed" | "cancelled";
 }
+
+export interface AttendanceSummary {
+  totalProcessed: number;
+  successCount: number;
+  errorCount: number;
+  totalRegistrations: number;
+  totalPresent: number;
+  totalAbsent: number;
+  attendancePercentage: number;
+}
+
 export interface ApiRes {
     success : boolean,
     message : string,
@@ -45,4 +60,7 @@ export interface ApiRes {
     eventD?: EventDetails;
     registrations?: RegistrationWithStudent[];
     statistics?: EventStatistics;
+    summary? : AttendanceSummary;
+    results? : ResultIntForStudentAttendance[],
+    errors? : { studentId: string; error: string }[];
 }

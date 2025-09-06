@@ -19,3 +19,21 @@ export interface EventUpdateDetails {
     maxParticipants?: number,
     status?: string,
 }
+
+export interface AttendanceEntry {
+    studentId : string,
+    attended : boolean,
+}
+
+export interface AttendanceRequest {
+  attendanceData: AttendanceEntry[];
+}
+
+export interface ResultIntForStudentAttendance {
+    studentId : string,
+    studentName?: string,
+    studentUSN?: string,
+    attended : boolean,
+    success : boolean,
+    message : string,
+}

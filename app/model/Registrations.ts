@@ -25,6 +25,13 @@ export interface RegistrationModel extends Model<RegistrationInt> {
   getEventAttendanceCount(eventId: mongoose.Types.ObjectId): Promise<number>;
 }
 
+ export interface StudentRefInt {
+  _id: mongoose.Types.ObjectId;
+  name: string;
+  usn: string;
+  email: string;
+}
+
 const registrationSchema = new Schema<RegistrationInt>(
   {
     eventId: {
