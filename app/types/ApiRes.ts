@@ -63,4 +63,5 @@ export interface ApiRes {
     summary? : AttendanceSummary;
     results? : ResultIntForStudentAttendance[],
     errors? : { studentId: string; error: string }[];
+    browsedEvents? : EventInt[],
 }
