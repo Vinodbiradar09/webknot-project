@@ -3,3 +3,4 @@ export interface AdminSignupTyp {
     email : string,
     password : string,
 }
+

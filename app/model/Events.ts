@@ -70,7 +70,7 @@ const eventSchema = new Schema<EventInt>(
         adminId : {
             type : mongoose.Schema.Types.ObjectId,
             ref: 'Admin',
-            required: [true, 'Admin ID is required']
+            // required: [true, 'Admin ID is required']
         }
     },
     {
