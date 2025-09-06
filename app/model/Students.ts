@@ -30,6 +30,7 @@ const studentsSchema = new Schema<StudentInt>(
             unique: true,
             lowercase: true,
             trim: true,
+            index : true,
             match: [/^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/, 'Please enter a valid email']
         },
         usn: {
@@ -38,6 +39,7 @@ const studentsSchema = new Schema<StudentInt>(
             unique: true,
             uppercase: true,
             trim: true,
+            index : true,
             match: [/^[A-Za-z0-9]{10}$/, "Invalid USN, please enter valid USN"], 
         },
         branch: {
@@ -71,10 +73,6 @@ const studentsSchema = new Schema<StudentInt>(
         timestamps: true,
     }
 );
-
-studentsSchema.index({ email: 1 }, { unique: true });
-studentsSchema.index({ usn: 1 }, { unique: true });
-studentsSchema.index({ branch: 1 });
 
 studentsSchema.pre("save", async function (next) {
     if (!this.isModified("password")) return next();

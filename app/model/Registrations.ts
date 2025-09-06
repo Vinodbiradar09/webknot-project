@@ -63,11 +63,6 @@ const registrationSchema = new Schema<RegistrationInt>(
   }
 );
 
-registrationSchema.index({ eventId: 1, studentId: 1 }, { unique: true });
-registrationSchema.index({ eventId: 1 });
-registrationSchema.index({ studentId: 1 });
-registrationSchema.index({ attended: 1 });
-
 registrationSchema.statics.isAlreadyRegistered = async function (
   eventId: mongoose.Types.ObjectId,
   studentId: mongoose.Types.ObjectId

@@ -78,10 +78,6 @@ const eventSchema = new Schema<EventInt>(
     }
 );
 
-eventSchema.index({ startDate: 1 });
-eventSchema.index({ adminId: 1 });
-eventSchema.index({ status: 1 });
-eventSchema.index({ type: 1 });
 
 eventSchema.methods.isRegistrable = function(): boolean {
     const now = new Date().getTime();

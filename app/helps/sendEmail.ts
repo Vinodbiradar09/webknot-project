@@ -3,6 +3,7 @@ import { ApiRes } from "../types/ApiRes";
 import VerificationEmail from "@/emails/EmailVer";
 
 export const sendVerificationEmail = async( email : string , name : string , verifyCode : string) : Promise<ApiRes>=>{
+     
     try {
         const {data , error} = await resend.emails.send({
             from: 'vinod <vinod@skmayya.me>',

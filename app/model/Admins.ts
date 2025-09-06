@@ -26,6 +26,7 @@ const adminSchema = new Schema<AdminInt>(
             required: [true, 'Email is required'],
             unique: true,
             lowercase: true,
+            index : true,
             trim: true,
             match: [/^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/, 'Please enter a valid email']
         },
@@ -51,7 +52,6 @@ const adminSchema = new Schema<AdminInt>(
         timestamps : true,
     }
 )
-adminSchema.index({ email: 1 }, { unique: true });
 
 adminSchema.pre("save" , async function (next) {
     if (!this.isModified("password")) return next();
