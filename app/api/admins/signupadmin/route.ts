@@ -4,7 +4,8 @@ import { signupValidationAdmin } from "@/app/schemas/admin.sch";
 import { AdminSignupTyp } from "@/app/types/AdminTyp";
 import Admin from "@/app/model/Admins";
 import { sendVerificationEmail } from "@/app/helps/sendEmail";
-export async function  POST(request : NextRequest) {
+export async function  POST(request : NextRequest) : Promise<NextResponse> {
+    let user;
     try {
         await connectDB();
         const body : AdminSignupTyp = await request.json();
@@ -30,6 +31,7 @@ export async function  POST(request : NextRequest) {
         const existingAdminWithEmail = await Admin.findOne({email});
         if(existingAdminWithEmail){
             if(existingAdminWithEmail.isVerified){
+                user = await Admin.findOne({email});
                 return NextResponse.json(
                     {
                         message : "Admin already exists with email",
@@ -37,6 +39,7 @@ export async function  POST(request : NextRequest) {
                     },{status : 400}
                 )
             }else {
+                user = await Admin.findOne({email});
                 existingAdminWithEmail.verifyCode = verifyCode;
                 existingAdminWithEmail.verifyCodeExpiry = new Date(Date.now() + 3600000);
                 await existingAdminWithEmail.save();
@@ -61,6 +64,7 @@ export async function  POST(request : NextRequest) {
                     },{status : 404}
                 )
             }
+            user = newAdmin;
         }
          const emailResponse = await sendVerificationEmail(email , name , verifyCode);
             if(!emailResponse.success){
@@ -75,6 +79,7 @@ export async function  POST(request : NextRequest) {
             {
                 message : "successfully created your account",
                 success : true,
+                _adminId : user?._id,
             },{status : 200}
         )
     } catch (error) {

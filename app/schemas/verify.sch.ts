@@ -6,4 +6,5 @@ export const verifyCodeValidation = z.object({
 export const signinValidation = z.object({
     email : z.string().email({message : "Invalid email address"}),
     password : z.string(),
+    role : z.enum(["student" ,"admin"])
 })

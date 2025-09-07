@@ -20,7 +20,8 @@ export async function POST(request : NextRequest) {
                 },{status : 404}
             )
         }
-        const admin = await Admin.findById(decodedAdmin);
+        console.log("a" , decodedAdmin);
+        const admin = await Admin.findById(decodedAdmin.toString());
         if(!admin){
             return NextResponse.json(
                 {

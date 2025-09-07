@@ -1,3 +1,4 @@
+import mongoose from "mongoose";
 import { EventInt } from "../model/Events";
 import { ResultIntForStudentAttendance } from "./EventTyp";
 
@@ -64,4 +65,5 @@ export interface ApiRes {
     results? : ResultIntForStudentAttendance[],
     errors? : { studentId: string; error: string }[];
     browsedEvents? : EventInt[],
+    _adminId? : mongoose.Types.ObjectId;
 }
