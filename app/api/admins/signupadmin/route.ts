@@ -4,6 +4,8 @@ import { signupValidationAdmin } from "@/app/schemas/admin.sch";
 import { AdminSignupTyp } from "@/app/types/AdminTyp";
 import Admin from "@/app/model/Admins";
 import { sendVerificationEmail } from "@/app/helps/sendEmail";
+import Student from "@/app/model/Students";
+import { success } from "zod";
 export async function  POST(request : NextRequest) : Promise<NextResponse> {
     let user;
     try {
@@ -28,6 +30,16 @@ export async function  POST(request : NextRequest) : Promise<NextResponse> {
         }
 
         const verifyCode = Math.floor(100000 + Math.random() * 900000).toString();
+        const checkTheEmailISRegisteredForStudentRole = await Student.findOne({email , isVerified : true});
+        if(checkTheEmailISRegisteredForStudentRole){
+            return NextResponse.json(
+                {
+                    message : "The email is already exist for student role",
+                    success : false,
+                },{status : 404}
+            )
+        }
+
         const existingAdminWithEmail = await Admin.findOne({email});
         if(existingAdminWithEmail){
             if(existingAdminWithEmail.isVerified){

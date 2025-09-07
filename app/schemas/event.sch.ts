@@ -51,3 +51,30 @@ export const createEventSchema = z.object({
   message: 'End date must be after start date',
   path: ['endDate']
 });
+
+
+export const createEventSchemaFE = z
+  .object({
+    title: z.string().min(3).max(100).trim(),
+    description: z.string().min(10).max(500).trim(),
+    type: z.enum(["hackathon", "fest", "talk"]),
+    startDate: z.preprocess(
+      val => (typeof val === "string" ? new Date(val) : val),
+      z.date().refine(date => date > new Date(), { message: "Start date must be in the future" })
+    ),
+    endDate: z.preprocess(
+      val => (typeof val === "string" ? new Date(val) : val),
+      z.date()
+    ),
+    venue: z.string().min(3).max(100).trim(),
+    maxParticipants: z
+      .preprocess(
+        val => val === "" ? undefined : Number(val),
+        z.number().min(1).max(1000).optional()
+      ),
+    status: z.enum(["upcoming", "ongoing", "completed", "cancelled"]),
+  })
+  .refine(data => data.endDate > data.startDate, {
+    message: "End date must be after start date",
+    path: ["endDate"]
+  });

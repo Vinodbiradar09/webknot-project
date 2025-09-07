@@ -69,7 +69,6 @@ export async function POST(request : NextRequest) : Promise<NextResponse>{
             venue : venue,
             maxParticipants : maxParticipants,
             status : status,
-            // adminId : "68bc24151aecb3f32ae82d72",
             adminId : realAdmin._id || admin.user.id,
         })
         if(!event){

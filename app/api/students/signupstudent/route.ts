@@ -37,7 +37,15 @@ export async function  POST(request : NextRequest) {
                 },{status : 400}
             )
         }
-
+        const checkTheEmailISRegisteredForAdminRole = await Student.findOne({email , isVerified : true});
+        if(checkTheEmailISRegisteredForAdminRole){
+            return NextResponse.json(
+                {
+                    message : "The email is already exist for Admin role",
+                    success : false,
+                },{status : 404}
+            )
+        }
         const existingVerifiedStudentWithUsn = await Student.findOne({usn , isVerified : true});
         if(existingVerifiedStudentWithUsn){
             console.log("user", existingVerifiedStudentWithUsn);
