@@ -113,4 +113,9 @@ it replyed me with some improvement and redesigned my project
 // main code first i divided the folders into students and admins 
 // for students folder i designed api route to regisster event and fetch all the event details that they are registered and the student stats on the registered events which is not that hard 
 // for admins i have wrote some complex  agggregationn querys and bulk write for attendance handling 
+// for the admins they can mark the attendance for the students registered to there events only 
+//and the admins can access the informations of the registered students , they can only get the info of the registered students info for there event
+//the admins has the previlages to create the events and update the events and cancel the events instead of deleting the event from the db's and the admins are allowed to cancel the events they have created 
+// fun part is to handle the auth.js or next-auth for the admins and students as i mentioned eariler i used the auth.js and the sign-up form is custom made for both the students and the admins when it comes to the login i haven't made the two session's one for the admin and for the students i handled single session and divide it in terms of the roles 
+// as i mentioned i wrote some aggregation's , some people use the populate instead of aggregation , which gives smae results for both but aggerations are little faster and great in the performance as compare to the populate
 // sorry my time is up it's 2:56 i can't explain more about project
